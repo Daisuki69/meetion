@@ -1,0 +1,136 @@
+.toolbar {
+  height: var(--toolbar-height);
+  background: var(--meet-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Left */
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+}
+
+.toolbar-time {
+  font-family: var(--font-google);
+  font-size: 14px;
+  color: var(--meet-text);
+  font-weight: 400;
+}
+
+.toolbar-separator {
+  width: 1px;
+  height: 20px;
+  background: var(--meet-border);
+}
+
+.toolbar-code {
+  font-family: var(--font-google);
+  font-size: 13px;
+  color: var(--meet-text-secondary);
+  letter-spacing: 0.3px;
+}
+
+/* Center */
+.toolbar-center {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--meet-surface-2);
+  margin: 0 4px;
+}
+
+/* Toolbar buttons */
+.toolbar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: var(--meet-text);
+  transition: background 0.15s, color 0.15s;
+  min-width: 56px;
+}
+
+.toolbar-btn:hover {
+  background: var(--meet-surface-2);
+}
+
+.toolbar-btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar-btn-label {
+  font-family: var(--font-google);
+  font-size: 11px;
+  color: var(--meet-text-secondary);
+  white-space: nowrap;
+}
+
+/* Danger state (mic/cam off) */
+.toolbar-btn-danger .toolbar-btn-icon {
+  background: var(--meet-red);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+}
+
+.toolbar-btn-danger .toolbar-btn-label {
+  color: #f28b82;
+}
+
+/* Highlight state (hand raised etc) */
+.toolbar-btn-highlight .toolbar-btn-icon {
+  color: #fbbc04;
+}
+
+/* Right — Leave */
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 180px;
+}
+
+.leave-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 40px;
+  background: var(--meet-red);
+  border-radius: 20px;
+  color: white;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.leave-btn:hover {
+  background: var(--meet-red-hover);
+  transform: scale(1.04);
+}
+
+.leave-btn:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 700px) {
+  .toolbar-left, .toolbar-right { display: none; }
+  .toolbar-btn-label { display: none; }
+  .toolbar-btn { min-width: 40px; padding: 8px; }
+}

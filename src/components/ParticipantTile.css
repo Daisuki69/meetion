@@ -1,0 +1,191 @@
+.participant-tile {
+  position: relative;
+  background: var(--meet-tile-bg);
+  border-radius: var(--meet-tile-radius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: outline 0.1s;
+  outline: 3px solid transparent;
+  min-height: 0;
+  user-select: none;
+}
+
+/* Entry animation */
+.participant-tile.tile-entering {
+  animation: tile-enter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Speaking */
+.participant-tile.is-speaking {
+  outline: 3px solid var(--meet-speaking);
+  outline-offset: -3px;
+}
+
+/* Screenshare tile */
+.participant-tile.is-screenshare {
+  background: #1a1a1a;
+  outline: none;
+}
+
+/* Video */
+.tile-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tile-video.loaded {
+  opacity: 1;
+}
+
+/* Avatar */
+.tile-avatar-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--meet-tile-bg);
+}
+
+.tile-avatar {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-google);
+  font-weight: 500;
+  color: white;
+  /* Size is set dynamically via JS or CSS custom prop */
+  width: clamp(40px, 25%, 72px);
+  height: clamp(40px, 25%, 72px);
+  font-size: clamp(14px, 10%, 28px);
+  flex-shrink: 0;
+}
+
+/* Bottom bar */
+.tile-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 10px 8px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  gap: 6px;
+}
+
+.tile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.tile-name {
+  font-family: var(--font-google);
+  font-size: 12px;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+.host-badge {
+  background: rgba(26,115,232,0.85);
+  color: white;
+  font-family: var(--font-google);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 1px 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.tile-mic-off {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--meet-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Pin button */
+.tile-pin-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(0,0,0,0.55);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.participant-tile:hover .tile-pin-btn {
+  opacity: 1;
+}
+
+.tile-pin-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+/* Speaking ring overlay */
+.speaking-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--meet-tile-radius);
+  outline: 3px solid var(--meet-speaking);
+  outline-offset: -3px;
+  pointer-events: none;
+  animation: speaking-pulse 1.2s ease-in-out infinite;
+}
+
+/* Tile leave animation — applied via JS class */
+.participant-tile.tile-leaving {
+  animation: tile-leave 0.3s ease forwards;
+}
+
+/* Size variants */
+.tile-large .tile-avatar {
+  width: clamp(60px, 15%, 96px);
+  height: clamp(60px, 15%, 96px);
+  font-size: clamp(24px, 6%, 38px);
+}
+
+.tile-large .tile-name {
+  font-size: 14px;
+}
+
+.tile-small .tile-avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+}
+
+.tile-small .tile-name {
+  font-size: 11px;
+}
+
+.tile-small .tile-bottom {
+  padding: 16px 7px 5px;
+}

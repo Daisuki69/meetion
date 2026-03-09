@@ -1,0 +1,66 @@
+.tile-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  gap: 6px;
+  padding: 6px;
+  transition: grid-template-columns 0.3s ease, grid-template-rows 0.3s ease;
+}
+
+/* Screen share layout */
+.grid-screenshare-layout {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+}
+
+.screenshare-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.screenshare-strip {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.screenshare-strip .participant-tile {
+  height: 120px;
+  flex-shrink: 0;
+}
+
+/* Pinned layout */
+.grid-pinned-layout {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+}
+
+.pinned-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.pinned-strip {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.pinned-strip .participant-tile {
+  height: 120px;
+  flex-shrink: 0;
+}
