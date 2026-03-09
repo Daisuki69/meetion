@@ -6,77 +6,51 @@ import {
 } from 'lucide-react'
 import './Toolbar.css'
 
-export default function Toolbar({ onLeave, participantCount }) {
+export default function Toolbar({ onLeave, participantCount, meetingCode }) {
   const [micOn, setMicOn] = useState(false)
   const [camOn, setCamOn] = useState(true)
   const [handRaised, setHandRaised] = useState(false)
 
   return (
     <div className="toolbar">
-      {/* Left — meeting info */}
       <div className="toolbar-left">
         <MeetClock />
-        <span className="toolbar-separator" />
-        <span className="toolbar-code">abc-defg-hij</span>
+        <span className="toolbar-sep" />
+        <span className="toolbar-code">{meetingCode || ''}</span>
       </div>
 
-      {/* Center — main controls */}
       <div className="toolbar-center">
-        <ToolbarBtn
-          active={micOn}
-          inactive={!micOn}
+        <ToolBtn
+          danger={!micOn}
           onClick={() => setMicOn(v => !v)}
           icon={micOn ? <Mic size={22} /> : <MicOff size={22} />}
           label={micOn ? 'Mute' : 'Unmute'}
-          danger={!micOn}
         />
-        <ToolbarBtn
-          active={camOn}
-          inactive={!camOn}
+        <ToolBtn
+          danger={!camOn}
           onClick={() => setCamOn(v => !v)}
           icon={camOn ? <Video size={22} /> : <VideoOff size={22} />}
           label={camOn ? 'Turn off' : 'Turn on'}
-          danger={!camOn}
         />
-        <ToolbarBtn
-          icon={<Captions size={22} />}
-          label="Captions"
-        />
-        <ToolbarBtn
-          icon={<MonitorUp size={22} />}
-          label="Present"
-        />
+        <ToolBtn icon={<Captions size={22} />}    label="Captions" />
+        <ToolBtn icon={<MonitorUp size={22} />}   label="Present" />
 
         <div className="toolbar-divider" />
 
-        <ToolbarBtn
-          icon={<Smile size={22} />}
-          label="React"
-        />
-        <ToolbarBtn
-          active={handRaised}
+        <ToolBtn icon={<Smile size={22} />} label="React" />
+        <ToolBtn
+          highlight={handRaised}
           onClick={() => setHandRaised(v => !v)}
           icon={<Hand size={22} />}
           label={handRaised ? 'Lower hand' : 'Raise hand'}
-          highlight={handRaised}
         />
-        <ToolbarBtn
-          icon={<MessageSquare size={22} />}
-          label="Chat"
-        />
-        <ToolbarBtn
-          icon={<Users size={22} />}
-          label={`People (${participantCount})`}
-        />
-        <ToolbarBtn
-          icon={<MoreVertical size={22} />}
-          label="More"
-        />
+        <ToolBtn icon={<MessageSquare size={22} />} label="Chat" />
+        <ToolBtn icon={<Users size={22} />} label={`People (${participantCount})`} />
+        <ToolBtn icon={<MoreVertical size={22} />} label="More" />
       </div>
 
-      {/* Right — leave */}
       <div className="toolbar-right">
-        <button className="leave-btn" onClick={onLeave}>
+        <button className="leave-btn" onClick={onLeave} title="Leave call">
           <PhoneOff size={20} />
         </button>
       </div>
@@ -84,32 +58,30 @@ export default function Toolbar({ onLeave, participantCount }) {
   )
 }
 
-function ToolbarBtn({ icon, label, onClick, active, inactive, danger, highlight }) {
+function ToolBtn({ icon, label, onClick, danger, highlight }) {
   return (
     <button
       className={[
         'toolbar-btn',
-        danger ? 'toolbar-btn-danger' : '',
-        highlight ? 'toolbar-btn-highlight' : '',
+        danger ? 'btn-danger' : '',
+        highlight ? 'btn-highlight' : '',
       ].filter(Boolean).join(' ')}
       onClick={onClick}
       title={label}
     >
-      <span className="toolbar-btn-icon">{icon}</span>
-      <span className="toolbar-btn-label">{label}</span>
+      <span className="btn-icon">{icon}</span>
+      <span className="btn-label">{label}</span>
     </button>
   )
 }
 
 function MeetClock() {
-  const [time, setTime] = React.useState(new Date())
+  const [time, setTime] = React.useState('')
   React.useEffect(() => {
-    const t = setInterval(() => setTime(new Date()), 1000)
+    const tick = () => setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+    tick()
+    const t = setInterval(tick, 1000)
     return () => clearInterval(t)
   }, [])
-  return (
-    <span className="toolbar-time">
-      {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-    </span>
-  )
+  return <span className="toolbar-time">{time}</span>
 }
